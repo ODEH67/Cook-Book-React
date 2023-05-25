@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import {Routes, Route } from "react-router-dom";
+import MainPage from "./components/MainPage";
+import Footer from "./components/Footer";
+import Ingredient from "./components/Ingredients";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <div className="App">
+        <div className='main-div'>
+          <Routes>
+            <Route  path="/" element={<MainPage/>} />
+            <Route  path="/gradient" element={<Ingredient/>} />
+            <Route  path="*" element={<h1 className="not-found">Error 404 page Not Found</h1>}/>
+          </Routes>
+        </div>
+        <Footer/>
     </div>
   );
 }
