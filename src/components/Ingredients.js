@@ -1,21 +1,36 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import SyncLoader from "react-spinners/ClockLoader";
-import { NavLink } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import PotatoSoup from "../img/Main/Creamy_Sweet_Potato_Soup.webp";
 import GradientHeader from "./IngredientsHeader";
 import "../CSS-files/cook-book-HomePage-&-ingredients.css"
 
 
 
-export default function Gradient() {
+export default function Gradient({setLoading,recipes,loading}) {
 
-    const [loading,setLoading] = useState(false);
+    // console.log("loading ingredient",loading)
+    // console.log("finalRecipe ingredient",recipes)
+
+    const [recipe,setRecipe] = useState({});
+    const page = useParams();
+    // console.log("ingredient page",+page.postId)
+    // console.log("ingredient recipe",recipe)
+
+
+        useEffect(() => {
+// plus sign (+) is to convert a string to a Number
+        const ClickedRecipe = recipes.find((Item) => Item.id === +page.postId);
+        setRecipe(ClickedRecipe);
+        setLoading(false)
+        // console.log("ClickedRecipe",ClickedRecipe)
+        
+        }, [recipes]);
 
 
     return (
 <>
-<GradientHeader/>
-    {loading ? (
+    {!recipe || Object.keys(recipe).length === 0 || loading ? (
         <SyncLoader
             color="rgb(0, 216, 184)"
             cssOverride={{ margin: "40vh auto" }}
@@ -23,25 +38,18 @@ export default function Gradient() {
             size={90}
         />
     ) : (
-
+        <>
+<GradientHeader recipe={recipe} />
 <main className="recipe">
-        <img className="recipe-image" src={PotatoSoup} alt=""/>
+        <img className="recipe-image" src={recipe.image} alt=""/>
         <div className="timing">
             <div className="prep-time">
                 <p className="timing-bold">PREP TIME</p>
-                <p>15 min</p>
-            </div>
-            <div className="cook-time">
-                <p className="timing-bold">PREP TIME</p>
-                <p>50 min</p>
-            </div>
-            <div className="total-time">
-                <p className="timing-bold">PREP TIME</p>
-                <p>65 min</p>
+                <p>{recipe.preporation_time}</p>
             </div>
             <div>
                 <p className="timing-bold">SERVINGS</p>
-                <p>6 to 8 servings</p>
+                <p>{recipe.serving}</p>
             </div>
         </div>
         <hr />
@@ -52,65 +60,17 @@ export default function Gradient() {
                 <th>Ingredients</th>
                 <th>Quantities</th>
             </tr>
-            <tr>
-                <td>butter</td>
-                <td>2 tablespoons</td>
+            {recipe.content.ingredients.map((item, idx) => {
+        return (
+            <tr key={idx}>
+                <td stayle={{wordBreak: 'break-word'}}>{item.ingredient}</td>
+                <td>{item.quantity}</td>
             </tr>
-            <tr>
-                <td>medium onion, chopped</td>
-                <td>1 (about 1 cup)</td>
-            </tr>
-            <tr>
-                <td>celery ribs, chopped</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>medium leek, white and light green parts only, sliced</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>clove garlic, chopped</td>
-                <td>1 (1 teaspoon)</td>
-            </tr>
-            <tr>
-                <td>orange-flesh sweet potatoes, peeled, cut into 1-inch pieces (about 5 cups)</td>
-                <td>1 1/2 pounds (about 2 large)</td>
-            </tr>
-            <tr>
-                <td>chicken stock, store bought or homemade</td>
-                <td>4 cups</td>
-            </tr>
-            <tr>
-                <td>cinnamon stick</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>ground nutmeg</td>
-                <td>1/4 teaspoon</td>
-            </tr>
-            <tr>
-                <td>heavy cream</td>
-                <td>1/4 cup</td>
-            </tr>
-            <tr>
-                <td>milk</td>
-                <td>3/4 cup</td>
-            </tr>
-            <tr>
-                <td>Salt</td>
-                <td>to taste</td>
-            </tr>
-            <tr>
-                <td>Pepper</td>
-                <td>to taste</td>
-            </tr>
-            <tr>
-                <td>sour cream or plain yogurt</td>
-                <td>1/4 cup</td>
-            </tr>
+            )})}
         </tbody>
         </table>
     </main>
+    </>
         )}
         </>
         )

@@ -1,4 +1,3 @@
-import {useState} from "react";
 import SyncLoader from "react-spinners/ClockLoader";
 import { Link } from "react-router-dom";
 import PotatoSoup from "../img/Main/Creamy_Sweet_Potato_Soup.webp";
@@ -6,15 +5,15 @@ import '../CSS-files/cook-book-HomePage-&-ingredients.css';
 import Header from "./Header";
 
 
-export default function MainPage() {
+export default function MainPage({recipes,loading}) {
 
-    const [loading,setLoading] = useState(false);
 
+    // console.log("loading main",loading)
+    // console.log("finalRecipe main",recipes)
 
     return (
 <>
-<Header/>
-    {loading ? (
+    {!recipes || Object.keys(recipes).length === 0 ||loading ? (
         <SyncLoader
             color="white"
             cssOverride={{ margin: "40vh auto" }}
@@ -23,21 +22,22 @@ export default function MainPage() {
         />
     ) : (
         <>
+        <Header/>
 <span id="recipes-today"></span>
     <main className="catalogue">
-    {/* {api && api.recipes && api.recipes.map((item, idx) => {
-        return ( */}
-        <div className="catalogue-item">
-            <Link to="/gradient">
-                <img className="food" src={PotatoSoup} alt="logo"/>
+    {recipes.map((item, idx) => {
+        return (
+        <div className="catalogue-item" key={item.id} >
+            <Link to={`/gradient/${item.id}`}>
+                <img className="food" src={item.image} alt="logo"/>
                 <div className="catalogue-item-info">
-                    <p className="food-type">LUNCH</p>
-                    <h3>Creamy Sweet Potato Soup</h3>
-                    <p className="time">65 mins</p>
+                    <p className="food-type">{item.category}</p>
+                    <h3>{item.title}</h3>
+                    <p className="time">{item.preporation_time}</p>
                 </div>
             </Link>
         </div>
-     {/* )})} */}
+    )})}
     </main>
         </>
         )}

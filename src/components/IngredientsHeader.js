@@ -1,11 +1,10 @@
-import {useContext} from "react";
 import { Link } from "react-router-dom";
 import '../App.css';
 import '../CSS-files/cook-book-ingredients-header.css';
 import HeaderLogo from "../img/Header/logo33.png";
 
 
-export default function IngredientsHeader() {
+export default function IngredientsHeader({recipe}) {
 
 
     return (
@@ -28,11 +27,12 @@ export default function IngredientsHeader() {
             </nav>
         </div>
         <div className="ingredients-header-text">
-            <h1 id="Ingredients-h1-head">Creamy Sweet Potato {<span id="Ingredients-lazy"><strong>Soup</strong></span>}</h1>
+            <h1 id="Ingredients-h1-head">{recipe.title} 
+            {/* <span id="Ingredients-lazy"><strong>Soup</strong></span> */}
+            </h1>
             <p id="Ingredients-title-underline">__________</p>
             <div className="Ingredients-title-text">
-                <p id="Ingredients-white-text">Sweet potato soup balances the sweet and savory with onions, garlic, onions, and
-                    leeks, along with a bit of nutmeg and cinnamon. Creamy and satisfying!</p>
+                <p id="Ingredients-white-text">{recipe.description} </p>
             </div>
         </div>
     </header> 
