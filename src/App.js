@@ -32,7 +32,7 @@ function App() {
   <div className="App">
         <div className='main-div'>
           <Routes>
-            <Route  path="/" element={<MainPage loading ={loading} recipes ={recipes} />} />
+            <Route  path="/home" element={<MainPage loading ={loading} recipes ={recipes} />} />
             <Route  path="/gradient/:postId" element={<Ingredient loading ={loading} setLoading ={setLoading} recipes ={recipes} />} />
             <Route  path="*" 
             element={

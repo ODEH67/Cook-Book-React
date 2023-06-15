@@ -1,10 +1,10 @@
 import {useContext} from "react";
 import HeaderImg from '../img/Header/logo33.png';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../CSS-files/cook-book-homepage-header.css"
 
 
-export default function Header() {
+export default function Header({setSelectedCategory}) {
 
 
 
@@ -12,18 +12,18 @@ export default function Header() {
         <header className='header'>
         <div className="header-menu-box">
             <div id="header-menu-logo">
-            <Link to="/"><img id="logo" src={HeaderImg} alt="logo"/></Link>
+            <NavLink to="/home"><img id="logo" src={HeaderImg} alt="logo"/></NavLink>
             </div>
             <nav id="nav-header">
                 <input type="checkbox" id="menu-button"/>
                 <label htmlFor="menu-button"><span className="material-symbols-rounded">menu</span></label>
                 <ul className="header-menu">
-                <li><Link id="header-click" className="home-head"  to="/">Home</Link></li>
-                    <li><Link id="header-click" className="tips-head" to="">Sweets</Link></li>
-                    <li><Link id="header-click" className="breakfast-head" to="">Breakfast</Link></li>
-                    <li><Link id="header-click" className="lunch-head" to="">Lunch</Link></li>
-                    <li><Link id="header-click" className="dinner-head" to="">Dinner</Link></li>
-                    <li><Link id="header-click" className="about-head" to="">About</Link></li>
+                <li><NavLink id="header-click" className="home-head"  to="/home">Home</NavLink></li>
+                    <li><NavLink id="header-click" onClick={() => setSelectedCategory("Sweets")} to="">Sweets</NavLink></li>
+                    <li><NavLink id="header-click" onClick={() => setSelectedCategory("Breakfast")} to="">Breakfast</NavLink></li>
+                    <li><NavLink id="header-click" onClick={() => setSelectedCategory("Lunch")} to="">Lunch</NavLink></li>
+                    <li><NavLink id="header-click" onClick={() => setSelectedCategory("Dinner")} to="">Dinner</NavLink></li>
+                    <li><NavLink id="header-click" onClick={() => setSelectedCategory("All")} to="">All</NavLink></li>
                 </ul>
             </nav>
         </div>

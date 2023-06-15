@@ -125,8 +125,6 @@ label[for="Ingredients-menu-button"] span{
     transition: 180ms;
 }
 
-
-
 #Ingredients-header-click:active {
     color: rgb(4, 181, 154);
     border-color: rgb(4, 181, 154);
@@ -160,6 +158,7 @@ label[for="Ingredients-menu-button"] span{
     visibility: visible;
     width: 85%;
 }
+
 
 
 @media (max-width: 1350px) {
